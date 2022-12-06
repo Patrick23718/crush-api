@@ -68,7 +68,7 @@ mongoose
   .connect(
     //`${dbConfig.URL}`,
     // `mongodb://${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`,
-    'mongodb+srv://test:teset@cluster0.vw7efl3.mongodb.net/crush?retryWrites=true&w=majority',
+    process.env.DB_URL,
     // 'mongodb+srv://test:test@cluster0.htrmr.mongodb.net/Bigoodee?retryWrites=true&w=majority',
     {
       useNewUrlParser: true,
