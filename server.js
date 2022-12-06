@@ -66,7 +66,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 mongoose
   .connect(
-    //`${dbConfig.URL}`,
     // `mongodb://${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`,
     process.env.DB_URL,
     // 'mongodb+srv://test:test@cluster0.htrmr.mongodb.net/Bigoodee?retryWrites=true&w=majority',
