@@ -84,8 +84,8 @@ mongoose
   });
 
 // simple route
-app.get('/', authJwt.verifyToken, (req, res) => {
-  res.json({ message: "Bienvenue sur l'API BiGooDee." });
+app.get('/', (req, res) => {
+  res.json({ message: "Bienvenue sur l'API Crush." });
 });
 require('./routes/interest.routes')(app);
 require('./routes/user.routes')(app);
