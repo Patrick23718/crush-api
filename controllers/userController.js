@@ -49,10 +49,16 @@ exports.updateUser = async (req, res) => {
 };
 
 exports.addImage = async (req, res) => {
+  if (!req.file) {
+    return res.status(400).send({
+      success: false,
+    });
+  }
+
   try {
     const data = await User.update(
       { uid: req.userId },
-      { $push: { image: req.body.imageURL } },
+      { $push: { image: req.file.filename } },
     );
     if (!data)
       return res.status(404).json({
@@ -66,15 +72,30 @@ exports.addImage = async (req, res) => {
 };
 
 exports.removeImage = async (req, res) => {
+  const fs = require('fs');
+
+  const filePath = req.body.image;
+
   try {
     const data = await User.update(
       { uid: req.userId },
-      { $pull: { image: req.body.imageURL } },
+      { $pull: { image: filePath } },
     );
     if (!data)
       return res.status(404).json({
         message: 'Not Found',
       });
+
+    fs.exists('uploads/profils/' + filePath, function (exists) {
+      if (exists) {
+        console.log('File exists. Deleting now ...');
+
+        fs.unlinkSync('uploads/profils/' + filePath);
+      } else {
+        console.log('File not found, so not deleting.');
+      }
+    });
+
     return res.status(200).json(data);
   } catch (error) {
     console.log(error);

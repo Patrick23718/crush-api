@@ -1,5 +1,6 @@
 const controller = require('../controllers/userController');
 const { verifyToken } = require('../middlewares/fireJWT');
+const upload = require('../helpers/profil');
 
 module.exports = function (app) {
   app.use(function (req, res, next) {
@@ -22,7 +23,11 @@ module.exports = function (app) {
   app.post('/user', verifyToken, controller.createUser);
   app.get('/user', verifyToken, controller.getUser);
   app.put('/user', verifyToken, controller.updateUser);
-  app.put('/user/image', verifyToken, controller.addImage);
+  app.put(
+    '/user/image',
+    [verifyToken, upload.single('image')],
+    controller.addImage,
+  );
   app.put('/user/image/remove', verifyToken, controller.removeImage);
   app.put('/user/interest', verifyToken, controller.addInterest);
   app.put('/user/interest/remove', verifyToken, controller.removeInterest);

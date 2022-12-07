@@ -64,11 +64,13 @@ app.use(bodyParser.json());
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.use('/uploads', express.static('uploads'));
+
 mongoose
   .connect(
-    // `mongodb://${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`,
-    process.env.DB_URL,
-    // 'mongodb+srv://test:test@cluster0.htrmr.mongodb.net/Bigoodee?retryWrites=true&w=majority',
+    `mongodb://${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`,
+    // process.env.DB_URL,
+    // 'mongodb+srv://test:test@cluster0.fev5rey.mongodb.net/CRUSH?retryWrites=true&w=majority',
     {
       useNewUrlParser: true,
       useUnifiedTopology: false,
